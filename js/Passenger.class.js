@@ -3,15 +3,16 @@
 const KEY_PASSENGERS = 'passengers';
 
 // This is a constructor function
-function Passenger(name, birthdate, id) {
+function Passenger(name, birthdate, email, tel, id) {
     this.name = name;
     this.birthdate = new Date(birthdate);
     this.pin = randomPin();
-    this.id = (id) ? id : Passenger.nextId();
+    this.email = (email)? email : null;
+    this.tel = (tel)? tel : null;
+    this.id = (id)? id : Passenger.nextId();
 }
 
 // static methods:
-
 Passenger.nextId = function () {
     let result = 1;
     let jsonPassengers = Passenger.loadJSONFromStorage();
@@ -33,15 +34,14 @@ Passenger.loadJSONFromStorage = function () {
     return passengers;
 }
 
-
-
 Passenger.query = function () {
 
     if (Passenger.passengers) return Passenger.passengers;
     let jsonPassengers = Passenger.loadJSONFromStorage();
 
     Passenger.passengers = jsonPassengers.map(jsonPassenger => {
-        return new Passenger(jsonPassenger.name, jsonPassenger.birthdate, jsonPassenger.id);
+        return new  Passenger(jsonPassenger.name, jsonPassenger.birthdate,
+                    jsonPassenger.email, jsonPassenger.tel, jsonPassenger.id);
     })
 
     return Passenger.passengers;
@@ -54,8 +54,10 @@ Passenger.save = function (formObj) {
         passenger = Passenger.findById(+formObj.pid);
         passenger.name = formObj.pname;
         passenger.birthdate = new Date(formObj.pdate);
+        passenger.email = formObj.pEmail;
+        passenger.tel = formObj.pTel;
     } else {
-        passenger = new Passenger(formObj.pname, formObj.pdate);
+        passenger = new Passenger(formObj.pname, formObj.pdate, formObj.pEmail, formObj.pTel);
         passengers.push(passenger);
     }
     Passenger.passengers = passengers;
@@ -102,29 +104,35 @@ Passenger.select = function (pId, elRow) {
     $('.details').show();
     let p = Passenger.findById(pId);
     $('.pDetailsName').html(p.name);
+    $('.pDetailsContent').html(`<div class="row">Pin: ${p.pin}</div>
+                                <div class="row">Email: ${p.email}</div><div class="row">Tel: ${p.tel}</div>`)
 }
-
 
 Passenger.savePassenger = function () {
     var formObj = $('form').serializeJSON();
-    console.log('formObj', formObj);
-
-
+    console.log('formObj', formObj); // TODO: remove log
     Passenger.save(formObj);
     Passenger.render();
     $('#modalPassenger').modal('hide');
 }
+
 Passenger.editPassenger = function (pId, event) {
     if (event) event.stopPropagation();
     if (pId) {
+        $('.modal-title').html('Update passenger details');
         let passenger = Passenger.findById(pId);
         $('#pid').val(passenger.id);
         $('#pname').val(passenger.name);
         $('#pdate').val(moment(passenger.birthdate).format('YYYY-MM-DD'));
+        $('#pEmail').val(passenger.email);
+        $('#pTel').val(passenger.tel);
     } else {
+        $('.modal-title').html('Add passenger');
         $('#pid').val('');
         $('#pname').val('');
         $('#pdate').val('');
+        $('#pEmail').val('');
+        $('#pTel').val('');
     }
 
 
@@ -142,7 +150,3 @@ Passenger.prototype.isBirthday = function () {
 Passenger.prototype.checkPin = function (pin) {
     return pin === this.pin;
 }
-
-
-
-
