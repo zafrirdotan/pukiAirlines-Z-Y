@@ -1,26 +1,21 @@
 'use strict';
 
-// function init() {
+const airports =    [
+                        'TLV',
+                        'PAR',
+                        'LON',
+                        'JFK',
+                        'BER',
+                        'BKK',
+                        'TOK',
+                        'MEX'
+                    ];
 
-//     console.log('init: About to query()');
-//     query();
-//     console.log('init: Done query()');
-// }
-
-// function query() {
-//     console.log('query: About to find()');
-//     find('Puki');
-//     console.log('query: Done find()');
-// }
-
-// function find(what) {
-//     let d = new Date()
-//     console.log('find: Found!');
-// }
-
-// init();
-
-
+function renderSRC() {
+    let $elFromArprt = $('#fromArprt');
+    let strHTML = airports.map(ap => `<option value="${ap}">${ap}</option>`).join('');
+    $elFromArprt.append(strHTML);
+}
 
 $(document).ready(()=>{
 

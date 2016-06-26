@@ -39,7 +39,7 @@ Plane.query = function () {
     let jsonPlanes = Plane.loadJSONFromStorage();
 
     Plane.planes = jsonPlanes.map(jsonPlane => {
-        return new  Plane(jsonPlane.model, jsonPlane.seats, jsonPlane.flights, jsonPlane.id);
+        return new Plane(jsonPlane.model, jsonPlane.seats, jsonPlane.flights, jsonPlane.id);
     })
 
     return Plane.planes;
