@@ -3,15 +3,15 @@
 const KEY_FLIGHTS = 'flights';
 
 // This is a constructor function 
-function Flight(src ,dest, departure, plane, seatsLeft, id) {
+function Flight(src ,dest, departure, planeId, id, psngrs = []) {
     
     this.src = src;
     this.dest = dest;
     this.departure = new Date(departure);
-    this.plane = plane;
-    this.seatsLeft = seatsLeft;
+    this.planeId = planeId;
     this.id = (id) ? id : Flight.nextId();
-
+    this.psngrs = psngrs;
+    this.seatsLeft = +Plane.findById(+planeId).seats - psngrs.length;
 }
 
 // static methods:
@@ -46,7 +46,7 @@ Flight.query = function () {
     console.log('jsonFlights: ', jsonFlights);
     
     Flight.flights = jsonFlights.map(jsonFlight => {
-        return new Flight( jsonFlight.src, jsonFlight.dest, jsonFlight.departure, jsonFlight.plane , jsonFlight.seatsLeft, jsonFlight.id);
+        return new Flight( jsonFlight.src, jsonFlight.dest, jsonFlight.departure, +jsonFlight.planeId, jsonFlight.id, +jsonFlight.psngrs);
     })
 
     return Flight.flights;
@@ -61,6 +61,8 @@ Flight.save = function (formObj) {
         flight.source = formObj.fsource; 
         flight.dest = formObj.fdest;
         flight.departure = new Date(formObj.fdate);
+        flight.planeId = formObj.fplaneId;
+        flight.seatsLeft = Plane.findById(+formObj.fplaneId).seats;
     } else {
         flight = new Flight(formObj.fsource, formObj.fdest, formObj.fdate, formObj.fplaneId);
         flights.push(flight);
@@ -82,14 +84,14 @@ Flight.render = function () {
 
     let flights = Flight.query();
     var strHtml = flights.map(f => {
-        return `<tr onclick="flight.select(${f.id}, this)">
+        return `<tr onclick="Flight.select(${f.id}, this)">
             <td>${f.id}</td>
             <td>${f.src}</td>
             <td>${f.dest}</td>
             <td>
                 ${moment(f.departure).format('DD-MM-YYYY')}
             </td>
-            <td>${f.plane}</td>
+            <td>${f.planeId}</td>
              <td>${f.seatsLeft}</td>
             <td>
                 <button class="btn btn-danger" onclick="Flight.remove(${f.id}, event)">
@@ -105,12 +107,12 @@ Flight.render = function () {
     $('.tblFlights').html(strHtml);
 }
 
-Flight.flight = function (fId, elRow) {
+Flight.select = function (fId, elRow) {
     $('.active').removeClass('active success');
     $(elRow).addClass('active success');
     $('.details').show();
     let f = Flight.findById(fId);
-    // $('.FDetailsName').html(f.name);
+    $('.FDetailsName').html(f.id);
 }
 
 
@@ -118,9 +120,11 @@ Flight.saveFlight = function () {
     var formObj = $('form').serializeJSON();
     console.log('formObj', formObj);
 
-
     Flight.save(formObj);
+   
     Flight.render();
+        
+   
     $('#modalFlight').modal('hide');
 }
 
@@ -131,12 +135,14 @@ Flight.editFlight = function (fId, event) {
     if (fId) {
         let flight = Flight.findById(fId);
         $('#fid').val(flight.id);
+        $('#fplaneId').val(flight.planeId);
         $('#fsource').val(flight.source);
         $('#fdest').val(flight.dest);
         $('#fdate').val(moment(flight.departure).format('YYYY-MM-DD'));
     } else {
         $('#fid').val('');
         $('#fsource').val('');
+         $('#fplaneId').val('');
         $('#fdest').val('');
         $('#fdate').val('');
     }
@@ -147,10 +153,7 @@ Flight.editFlight = function (fId, event) {
 
 // instance methods:
 
-
-
-// fsource
-
-// fdest
-// fplaneId
-// pdate
+Flight.prototype.assignPsngr = function(fid, Pid){
+    let flight = Flight.findById(fid);
+    flight.psngrs.push(Pid);
+};
