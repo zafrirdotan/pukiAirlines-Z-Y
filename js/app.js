@@ -13,8 +13,19 @@ const airports =    [
 
 function renderSRC() {
     let $elFromArprt = $('#fromArprt');
-    let strHTML = airports.map(ap => `<option value="${ap}">${ap}</option>`).join('');
+    let strHTML = (airports.map(ap => `<option value="${ap}">${ap}</option>`).join(''));
     $elFromArprt.append(strHTML);
+}
+
+function renderDEST() {
+    let src = $('#fromArprt').val();
+    let $elToArprt = $('#toArprt');
+    
+    let strHTML = '<option value="">Choose</option>';
+    strHTML += (airports.filter(ap => ap !== src).map(ap => `<option value="${ap}">${ap}</option>`).join(''));
+    console.log('strHTML:', strHTML);
+    
+    $elToArprt.html(strHTML);
 }
 
 $(document).ready(()=>{
