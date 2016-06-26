@@ -108,16 +108,14 @@ Passenger.select = function (pId, elRow) {
                                 <div class="row">Email: ${p.email}</div><div class="row">Tel: ${p.tel}</div>`)
 }
 
-
 Passenger.savePassenger = function () {
     var formObj = $('form').serializeJSON();
-    console.log('formObj', formObj);
-
-
+    console.log('formObj', formObj); // TODO: remove log
     Passenger.save(formObj);
     Passenger.render();
     $('#modalPassenger').modal('hide');
 }
+
 Passenger.editPassenger = function (pId, event) {
     if (event) event.stopPropagation();
     if (pId) {
@@ -126,11 +124,15 @@ Passenger.editPassenger = function (pId, event) {
         $('#pid').val(passenger.id);
         $('#pname').val(passenger.name);
         $('#pdate').val(moment(passenger.birthdate).format('YYYY-MM-DD'));
+        $('#pEmail').val(passenger.email);
+        $('#pTel').val(passenger.tel);
     } else {
         $('.modal-title').html('Add passenger');
         $('#pid').val('');
         $('#pname').val('');
         $('#pdate').val('');
+        $('#pEmail').val('');
+        $('#pTel').val('');
     }
 
 

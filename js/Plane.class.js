@@ -61,3 +61,74 @@ Plane.save = function (formObj) {
     Plane.planes = planes;
     saveToStorage(KEY_PLANES, planes);
 }
+
+Plane.remove = function (pId, event) {
+    event.stopPropagation();
+    let planes = Plane.query();
+    planes = planes.filter(p => p.id !== pId)
+    saveToStorage(KEY_PLANES, planes);
+    Plane.planes = planes;
+    Plane.render();
+}
+
+Plane.render = function () {
+
+    let planes = Plane.query();
+    var strHtml = planes.map(p => {
+        return `<tr onclick="Plane.select(${p.id}, this)">
+            <td>${p.id}</td>
+            <td>${p.model}</td>
+            <td>${p.seats}</td>
+            <td>
+                <button class="btn btn-danger" onclick="Plane.remove(${p.id}, event)">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+                <button class="btn btn-info" onclick="Plane.editPlane(${p.id}, event)">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </button>
+            </td>
+        </tr>`
+
+    }).join(' ');
+    $('.tblPlanes').html(strHtml);
+}
+
+Plane.select = function (pId, elRow) {
+    $('.active').removeClass('active success');
+    $(elRow).addClass('active success');
+    $('.details').show();
+    let p = Plane.findById(pId);
+    $('.pDetailsId').html(p.name);
+    $('.pDetailsContent').html(`<div class="row">Flights: ${p.flights}</div>`)
+}
+
+Plane.savePlane = function () {
+    var formObj = $('form').serializeJSON();
+    console.log('formObj', formObj); //TODO: remove log
+    Plane.save(formObj);
+    Plane.render();
+    $('#modalPlane').modal('hide');
+}
+
+Plane.editPlane = function (pId, event) {
+    if (event) event.stopPropagation();
+    if (pId) {
+        $('.modal-title').html('Update plane details');
+        let plane = Plane.findById(pId);
+        $('#pid').val(plane.id);
+        $('#pModel').val(plane.model);
+        $('#pSeats').val(plane.seats);
+    } else {
+        $('.modal-title').html('Add plane');
+        $('#pid').val('');
+        $('#pModel').val('');
+        $('#pSeats').val('');
+    }
+    $('#modalPlane').modal('show');
+}
+
+// instance methods:
+
+// Plane.prototype.getFlights = function() {
+
+// }
