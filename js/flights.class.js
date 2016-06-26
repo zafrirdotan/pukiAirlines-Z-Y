@@ -3,14 +3,14 @@
 const KEY_FLIGHTS = 'flights';
 
 // This is a constructor function 
-function Flight(id, src , dest, departure, plane, seatsLeft) {
+function Flight(src ,dest, departure, plane, seatsLeft, id) {
     
-    this.id = (id) ? id : Flight.nextId();
     this.src = src;
     this.dest = dest;
     this.departure = new Date(departure);
     this.plane = plane;
     this.seatsLeft = seatsLeft;
+    this.id = (id) ? id : Flight.nextId();
 
 }
 
@@ -25,7 +25,7 @@ Flight.nextId = function () {
 
 Flight.findById = function (fId) {
     let result = null;
-    let flights = flight.query()
+    let flights = Flight.query()
         .filter(f => f.id === fId);
     if (flights.length) result = flights[0];
     return result;
@@ -43,49 +43,54 @@ Flight.query = function () {
 
     if (Flight.flights) return Flight.flights;
     let jsonFlights = Flight.loadJSONFromStorage();
-
+    console.log('jsonFlights: ', jsonFlights);
+    
     Flight.flights = jsonFlights.map(jsonFlight => {
-        return new Flight(jsonFlight.id, jsonFlight.src, jsonFlight.dest, jsonFlight.departure, jsonFlight.plane , seatsLeft);
+        return new Flight( jsonFlight.src, jsonFlight.dest, jsonFlight.departure, jsonFlight.plane , jsonFlight.seatsLeft, jsonFlight.id);
     })
 
     return Flight.flights;
 }
 
 Flight.save = function (formObj) {
+
     let flights = Flight.query();
     let flight;
-    if (formObj.pid) {
-        flight = flight.findById(+formObj.pid);
+    if (formObj.fid) {
+        flight = Flight.findById(+formObj.fid);
         flight.source = formObj.fsource; 
         flight.dest = formObj.fdest;
-        flight.departureDate = new Date(formObj.fdate);
+        flight.departure = new Date(formObj.fdate);
     } else {
-        flight = new Flight(formObj.fsource, formObj.fdest, formObj.fdate);
-        flights.push(Flight);
+        flight = new Flight(formObj.fsource, formObj.fdest, formObj.fdate, formObj.fplaneId);
+        flights.push(flight);
     }
     Flight.flights = flights;
     saveToStorage(KEY_FLIGHTS, flights);
 }
 
-Flight.remove = function (pId, event) {
+Flight.remove = function (fId, event) {
     event.stopPropagation();
-    let passengers = Passenger.query();
-    passengers = passengers.filter(p => p.id !== pId)
-    saveToStorage(KEY_FLIGHTS, passengers);
-    Passenger.passengers = passengers;
-    Passenger.render();
+    let flights = Flight.query();
+    flights = flights.filter(f => f.id !== fId)
+    saveToStorage(KEY_FLIGHTS, flights);
+    Flight.flights = flights;
+    Flight.render();
 }
 
 Flight.render = function () {
 
     let flights = Flight.query();
-    var strHtml = flights.map(p => {
+    var strHtml = flights.map(f => {
         return `<tr onclick="flight.select(${f.id}, this)">
             <td>${f.id}</td>
             <td>${f.src}</td>
+            <td>${f.dest}</td>
             <td>
-                ${moment(f.departureDate).format('DD-MM-YYYY')}
+                ${moment(f.departure).format('DD-MM-YYYY')}
             </td>
+            <td>${f.plane}</td>
+             <td>${f.seatsLeft}</td>
             <td>
                 <button class="btn btn-danger" onclick="Flight.remove(${f.id}, event)">
                     <i class="glyphicon glyphicon-trash"></i>
@@ -100,12 +105,12 @@ Flight.render = function () {
     $('.tblFlights').html(strHtml);
 }
 
-Flight.select = function (pId, elRow) {
+Flight.flight = function (fId, elRow) {
     $('.active').removeClass('active success');
     $(elRow).addClass('active success');
     $('.details').show();
-    let p = Passenger.findById(pId);
-    $('.pDetailsName').html(p.name);
+    let f = Flight.findById(fId);
+    // $('.FDetailsName').html(f.name);
 }
 
 
@@ -121,12 +126,14 @@ Flight.saveFlight = function () {
 
 Flight.editFlight = function (fId, event) {
     if (event) event.stopPropagation();
+    console.log('fId:',fId);
+    
     if (fId) {
-        let flight = flight.findById(fId);
+        let flight = Flight.findById(fId);
         $('#fid').val(flight.id);
         $('#fsource').val(flight.source);
         $('#fdest').val(flight.dest);
-        $('#fdate').val(moment(passenger.departure).format('YYYY-MM-DD'));
+        $('#fdate').val(moment(flight.departure).format('YYYY-MM-DD'));
     } else {
         $('#fid').val('');
         $('#fsource').val('');
