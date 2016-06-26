@@ -44,7 +44,7 @@
     <main class="passengerPage">
         <div class="container">
             <!-- Button trigger modal -->
-            <button onclick="Passenger.editPassenger()" class="btn btn-primary btn-lg">
+            <button onclick="Flight.editFlight()" class="btn btn-primary btn-lg">
                 <span class="glyphicon glyphicon-plus"></span>
                 Add Flight
             </button>
@@ -53,18 +53,20 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>Birthdate</th>
-                    <th>Actions</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Departure</th>
+                    <th>plane</th>
+                    <th>Seats left</th>
                 </tr>
             </thead>
-            <tbody class="tblPassengers">
+            <tbody class="tblFlights">
 
             </tbody>
         </table>
 
         <section class="details">
-            <h2>Passenger <span class="pDetailsName"></span> Details</h2>
+            <h2>Flight <span class="pDetailsName"></span> Details</h2>
 
         </section>
 
@@ -75,30 +77,57 @@
 
 
 
-    <div class="modal fade" id="modalPassenger" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="modalFlight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add Passenger</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Flight</h4>
                 </div>
                 <div class="modal-body">
                     <form>
                         <input type="hidden" id="pid" name="pid" >
+                        
                         <div class="form-group">
-                            <label for="pname">Name</label>
-                            <input type="text" class="form-control" id="pname" name="pname"  placeholder="Name">
+                            <label for="fsource">Source</label>
+                            <select type="text" class="form-control" id="fsource" name="fsource"  placeholder="Source">
+                                <option>TLV</option>
+                                <option>LOD</option>
+                                <option>NYC</option>
+                                <option>PRI</option>
+                            </select>
                         </div>
+                         <!--src , dest, departure, plane, seatsLeft-->
                         <div class="form-group">
-                            <label for="pdate">Birthdate</label>
-                            <input type="date" class="form-control" id="pdate" name="pdate" placeholder="Birthdate">
+                            <label for="fdest">Destination</label>
+                            <select type="text" class="form-control" id="fdest" name="fdest"  placeholder="Destination">
+                                <option>TLV</option>
+                                <option>LOD</option>
+                                <option>NYC</option>
+                                <option>PRI</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fplaneId">Plane Id</label>
+                            <select type="text" class="form-control" id="fplaneId" name="fplaneId"  placeholder="PlaneId">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pdate">Departure</label>
+                            <input type="date" class="form-control" id="fdate" name="fdate" placeholder="Departure date">
                         </div>
                         
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="Passenger.savePassenger()">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="Flight.saveFlight()">Save</button>
                 </div>
             </div>
         </div>
@@ -113,9 +142,9 @@
     <script src="lib/bootstrap/javascripts/bootstrap.min.js"></script>
     <script src="lib/moment.min.js"></script>
     <script src="js/general.js"></script>
-    <script src="js/oop.js"></script>
+    <!--<script src="js/oop.js"></script>-->
     <script src="js/app.js"></script>
-    <script src="js/Passenger.class.js"></script>
+    <script src="js/flights.class.js"></script>
 
 </body>
 

@@ -24,6 +24,6 @@
 
 $(document).ready(()=>{
 
-    Passenger.render();
+    console.log('document loaded');
 
 });
