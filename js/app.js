@@ -63,7 +63,7 @@ console.log('fId', fId);
                                 to ${flight.dest} on the ${moment(flight.departure).format('DD-MM-YYYY')}`);
     let passengers = Passenger.query() 
 
-    let strHTMLNames = passengers.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+    let strHTMLNames = passengers.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
     $('#pBookingNames').append(strHTMLNames)
 
     $('#bookBtn').attr('onclick', `Flight.findById(${+fId}).assignPsngr($('#pBookingNames').val())`);
