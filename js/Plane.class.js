@@ -1,7 +1,12 @@
 'use strict';
 
 const KEY_PLANES = 'planes';
-const INITIAL_PLANES = [{"model":"boeing 747-400","seats":"455","flights":[],"id":1},{"model":"boeing 737-900 ER","seats":"179","flights":[],"id":2},{"model":"boeing 767-300","seats":"215","flights":[],"id":3},{"model":"AirBus A300","seats":"361","flights":[],"id":4}];
+const INITIAL_PLANES =  [
+                            {"model":"boeing 747-400",      "seats":"455",  "flights":[],   "id":1},
+                            {"model":"boeing 737-900 ER",   "seats":"179",  "flights":[],   "id":2},
+                            {"model":"boeing 767-300",      "seats":"215",  "flights":[],   "id":3},
+                            {"model":"AirBus A300",         "seats":"361",  "flights":[],   "id":4},
+                        ];
 
 // This is a constructor function
 function Plane(model, seats, flights, id) {
