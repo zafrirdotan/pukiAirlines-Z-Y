@@ -15,20 +15,20 @@ body {
 
 header {
     text-align: center;
-  display:flex;
-  flex-flow: row wrap;
-  background-color: indigo;
-  padding:10px;
-  margin-bottom: 10px;
-  h1 {
-    color:gold;
-    transition: all 3s;
+    display:flex;
+    flex-flow: row wrap;
+    background-color: indigo;
+    padding:10px;
+    margin-bottom: 10px;
+    h1 {
+        color:gold;
+        transition: all 3s;
 
-    &:hover {
-        color:lightblue;
-        font-size: 3em;
+        &:hover {
+            color:lightblue;
+            font-size: 3em;
+        }
     }
-  }
 }
 
 footer {
@@ -39,7 +39,7 @@ footer {
 
 @import 'passenger';
 .searchHeader{
-    display: block;
+    display: none;
     background-color: rgba(0, 0, 0, 0.11);
     text-align: center;
     color: #171515;

@@ -6236,7 +6236,7 @@ footer {
   color: orange; }
 
 .searchHeader {
-  display: block;
+  display: none;
   background-color: rgba(0, 0, 0, 0.11);
   text-align: center;
   color: #171515;
