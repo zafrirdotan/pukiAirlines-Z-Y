@@ -1,15 +1,17 @@
 'use strict';
 
 const KEY_PASSENGERS = 'passengers';
+const INITIAL_PASSENGERS = [{"name":"Alejandro Alfonso Quaron  ","birthdate":"1982-02-07T00:00:00.000Z","email":"alehandro@gmail.com","tel":"053422722","id":1,"pin":36468,"flights":[]},{"name":"Mhmut Devutulu","birthdate":"1966-06-15T00:00:00.000Z","email":"mhmut.dev@hotmail.com","tel":"07674534","id":2,"pin":74609,"flights":[]},{"name":"Ayaturu Hanzu","birthdate":"1948-02-17T00:00:00.000Z","email":"aiazu@gmail.com","tel":"099076758","id":3,"pin":84680,"flights":[]},{"name":"Dov Hanin","birthdate":"1964-06-18T00:00:00.000Z","email":"yuyo@gmail.com","tel":"07897564","id":4,"pin":89096,"flights":[]},{"name":"biatris kido","birthdate":"1966-06-16T00:00:00.000Z","email":"bibi@gmail.com","tel":"89696352","id":5,"pin":27405,"flights":[]},{"name":"moshik afia","birthdate":"1987-05-14T00:00:00.000Z","email":"moshmosh.com","tel":"86545637","id":6,"pin":38331,"flights":[]},{"name":"tut anah amon ","birthdate":"1983-06-15T00:00:00.000Z","email":"tutanah@gmail.com","tel":"8969865","id":7,"pin":97067,"flights":[]},{"name":"samuel herbert","birthdate":"1908-07-22T00:00:00.000Z","email":"sam@gmail.com","tel":"6845632","id":8,"pin":21199,"flights":[]},{"name":"ron prosor","birthdate":"1972-06-08T00:00:00.000Z","email":"ron.com","tel":"785673246","id":9,"pin":88595,"flights":[]},{"name":"yuval noah har ","birthdate":"1960-06-27T00:00:00.000Z","email":"fgfkj@gmail.com","tel":"647763472","id":10,"pin":78622,"flights":[]}]
 
 // This is a constructor function
-function Passenger(name, birthdate, email, tel, id) {
+function Passenger(name, birthdate, email, tel, id, pin, flights ) {
     this.name = name;
     this.birthdate = new Date(birthdate);
-    this.pin = randomPin();
     this.email = (email)? email : null;
     this.tel = (tel)? tel : null;
     this.id = (id)? id : Passenger.nextId();
+    this.pin = (pin)? pin : randomPin();
+    this.flights = (flights)? flights : [];
 }
 
 // static methods:
@@ -30,7 +32,8 @@ Passenger.findById = function (pId) {
 
 Passenger.loadJSONFromStorage = function () {
     let passengers = getFromStorage(KEY_PASSENGERS);
-    if (!passengers) passengers = [];
+    if (!passengers) passengers = INITIAL_PASSENGERS;
+    saveToStorage(KEY_PASSENGERS, passengers);
     return passengers;
 }
 
@@ -42,7 +45,7 @@ Passenger.query = function () {
 
     Passenger.passengers = jsonPassengers.map(jsonPassenger => {
         return new  Passenger(jsonPassenger.name, jsonPassenger.birthdate,
-                    jsonPassenger.email, jsonPassenger.tel, jsonPassenger.id);
+                    jsonPassenger.email, jsonPassenger.tel, jsonPassenger.id, jsonPassenger.pin, jsonPassenger.flights);
     })
 
     return Passenger.passengers;
