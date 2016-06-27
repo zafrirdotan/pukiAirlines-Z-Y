@@ -111,9 +111,13 @@ Flight.render = function () {
 Flight.select = function (fId, elRow) {
     $('.active').removeClass('active success');
     $(elRow).addClass('active success');
-    $('.details').show();
+    $('.fdetails').show();
     let f = Flight.findById(fId);
-    $('.FDetailsName').html(f.id);
+    $('.fDetailsName').html(f.id);
+    let details = `<div class="row">plane Id: ${f.planeId}</div>
+                     <div class="row">psngrs: ${f.psngrs}</div>
+                       <div class="row">seats left: ${f.seatsLeft}</div>`
+    $('.fInerrDetails').html(details);
 }
 
 
