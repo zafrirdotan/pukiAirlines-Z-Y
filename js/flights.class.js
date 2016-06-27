@@ -110,9 +110,10 @@ Flight.render = function () {
 Flight.select = function (fId, elRow) {
     $('.active').removeClass('active success');
     $(elRow).addClass('active success');
-    $('.details').show();
+    $('.fdetails').show();
     let f = Flight.findById(fId);
-    $('.FDetailsName').html(f.id);
+    $('.fDetailsName').html(f.id);
+
 }
 
 
