@@ -66,6 +66,8 @@ console.log('fId', fId);
     let strHTMLNames = passengers.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
     $('#pBookingNames').append(strHTMLNames)
 
+    $('#bookBtn').attr('onclick', `Flight.findById(${+fId}).assignPsngr($('#pBookingNames').val())`);
+
     $('#modalBookFlight').modal('show');
 
 }

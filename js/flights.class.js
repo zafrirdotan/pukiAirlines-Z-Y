@@ -48,7 +48,10 @@ Flight.findById = function (fId) {
 
 Flight.loadJSONFromStorage = function () {
     let flights = getFromStorage(KEY_FLIGHTS);
-    if (!flights) flights = INITIAL_FLIGHTS;
+    if (!flights) {
+        flights = INITIAL_FLIGHTS;
+        saveToStorage(KEY_FLIGHTS, flights);
+    }
     return flights;
 }
 
@@ -193,7 +196,10 @@ Flight.getFlights = function () {
 // instance methods:
 
 Flight.prototype.assignPsngr = function(Pid){
+    let flights = Flight.query();
     this.psngrs.push(Pid);
+    console.log('this:', this);
+    saveToStorage(KEY_FLIGHTS, flights);
 };
 
 $(document).ready(()=>{
