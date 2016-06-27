@@ -114,7 +114,10 @@ Flight.select = function (fId, elRow) {
     $('.fdetails').show();
     let f = Flight.findById(fId);
     $('.fDetailsName').html(f.id);
-
+    let details = `<div class="row">plane Id: ${f.planeId}</div>
+                     <div class="row">psngrs: ${f.psngrs}</div>
+                       <div class="row">seats left: ${f.seatsLeft}</div>`
+    $('.fInerrDetails').html(details);
 }
 
 
