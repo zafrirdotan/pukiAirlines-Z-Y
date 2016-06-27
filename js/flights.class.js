@@ -3,15 +3,15 @@
 const KEY_FLIGHTS = 'flights';
 
 // This is a constructor function 
-function Flight(src ,dest, departure, planeId, id, psngrs = []) {
+function Flight(src ,dest, departure, planeId, id, psngrs) {
     
     this.src = src;
     this.dest = dest;
     this.departure = new Date(departure);
     this.planeId = planeId;
     this.id = (id) ? id : Flight.nextId();
-    this.psngrs = psngrs;
-    this.seatsLeft = +Plane.findById(+planeId).seats - psngrs.length;
+    this.psngrs = (psngrs)? psngrs: [];
+    this.seatsLeft = +Plane.findById(+planeId).seats - this.psngrs.length;
 }
 
 // static methods:
@@ -43,10 +43,11 @@ Flight.query = function () {
 
     if (Flight.flights) return Flight.flights;
     let jsonFlights = Flight.loadJSONFromStorage();
-    console.log('jsonFlights: ', jsonFlights);
+    // console.log('jsonFlights: ', jsonFlights);
     
     Flight.flights = jsonFlights.map(jsonFlight => {
-        return new Flight( jsonFlight.src, jsonFlight.dest, jsonFlight.departure, +jsonFlight.planeId, jsonFlight.id, +jsonFlight.psngrs);
+        return new Flight(  jsonFlight.src, jsonFlight.dest, jsonFlight.departure,
+                            +jsonFlight.planeId, jsonFlight.id, +jsonFlight.psngrs);
     })
 
     return Flight.flights;
