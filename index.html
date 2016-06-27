@@ -47,13 +47,22 @@
     </header>
 
     <main class="booking">
-       <h1>Puki Airlines interface</h1>
-       <select onchange="renderDEST()" required name="fromArprt" id="fromArprt">
-         <option value="">Choose</option>
-       </select>
-       <select required name="toArprt" id="toArprt">
-         <option value="">Choose</option>
-       </select>
+      <h1>Puki Airlines interface</h1>
+      <form>
+        <div class="form-group">
+          <label for="fromArprt">choose SRC</label>
+          <select onchange="renderDEST()" type="text" class="form-control" id="fromArprt" name="fromArprt"  placeholder="choose SRC">
+            <option value="">Choose</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="toArprt">choose DEST</label>
+          <select type="text" class="form-control" id="toArprt" name="toArprt"  placeholder="choose DEST">
+            <option value="">Choose</option>
+          </select>
+        </div>
+      </form>
+        <button type="button" class="btn btn-primary" onclick="Flight.showFlights()">Search flight</button>
     </main>
 
 
@@ -68,8 +77,10 @@
     <script src="lib/moment.min.js"></script>
     <script src="js/general.js"></script>
     <!--<script src="js/oop.js"></script>-->
-    <script src="js/app.js"></script>
     <script src="js/Passenger.class.js"></script>
+    <script src="js/Plane.class.js"></script>
+    <script src="js/flights.class.js"></script>
+    <script src="js/app.js"></script>
 
 </body>
 

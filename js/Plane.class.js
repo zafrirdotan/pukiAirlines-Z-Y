@@ -136,6 +136,11 @@ Plane.editPlane = function (pId, event) {
 
 // instance methods:
 
+// 
+Plane.prototype.assignFlight = function(fid){
+    this.flights.push(fid);
+};
+
 // Plane.prototype.getFlights = function() {
 
 // }

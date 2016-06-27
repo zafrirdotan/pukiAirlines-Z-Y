@@ -152,11 +152,27 @@ Flight.editFlight = function (fId, event) {
 
 }
 
+Flight.searchFlights = function (src, dest) {
+    let result = null;
+    let flights = Flight.query()
+        .filter(f => f.src === src && f.dest === dest);
+    if (flights.length) result = flights;
+    return result;
+}
+
+Flight.getFlights = function () {
+
+    let $src = $('#fromArprt').val();
+    let $dest = $('#toArprt').val();
+    let flights= Flight.searchFlights($src, $dest);
+    console.log('flights:', flights);
+    renderSearchResults(flights);
+}
+
 // instance methods:
 
-Flight.prototype.assignPsngr = function(fid, Pid){
-    let flight = Flight.findById(fid);
-    flight.psngrs.push(Pid);
+Flight.prototype.assignPsngr = function(Pid){
+    this.psngrs.push(Pid);
 };
 
 $(document).ready(()=>{

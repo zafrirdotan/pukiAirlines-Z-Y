@@ -24,7 +24,7 @@ function renderDEST() {
     
     let strHTML = '<option value="">Choose</option>';
     strHTML += (airports.filter(ap => ap !== src).map(ap => `<option value="${ap}">${ap}</option>`).join(''));
-    console.log('strHTML:', strHTML);
+    // console.log('strHTML:', strHTML);
     
     $elToArprt.html(strHTML);
 }
