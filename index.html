@@ -69,6 +69,44 @@
         <section class="search-results"> </section>
 
 
+
+    <div class="modal fade" id="modalBookFlight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Passenger</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" id="pid" name="pid" >
+                        <div class="form-group">
+                            <label for="pname">Name</label>
+                            <input type="text" class="form-control" id="pname" name="pname"  placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="pdate">Birthdate</label>
+                            <input type="date" class="form-control" id="pdate" name="pdate" placeholder="Birthdate">
+                        </div>
+                        <div class="form-group">
+                            <label for="pEmail">Email</label>
+                            <input type="email" class="form-control" id="pEmail" name="pEmail" placeholder="abc@def.gh">
+                        </div>
+                        <div class="form-group">
+                            <label for="pTel">Tel</label>
+                            <input type="tel" class="form-control" id="pTel" name="pTel" placeholder="xxx-xxxxxxx">
+                        </div>
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="Passenger.savePassenger()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         cofferights &copy; 2016
     </footer>
