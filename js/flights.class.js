@@ -1,6 +1,21 @@
 'use strict';
 
 const KEY_FLIGHTS = 'flights';
+const INITIAL_FLIGHTS = [   
+    {"src":"TLV","dest":"BER","departure":"2016-06-28T00:00:00.000Z","planeId":"1","id":1,"psngrs":[],"seatsLeft":455},
+    {"src":"TLV","dest":"BER","departure":"2016-06-30T00:00:00.000Z","planeId":"2","id":2,"psngrs":[],"seatsLeft":179},
+    {"src":"TLV","dest":"PAR","departure":"2016-06-29T00:00:00.000Z","planeId":"3","id":3,"psngrs":[],"seatsLeft":215},
+    {"src":"TLV","dest":"PAR","departure":"2016-07-02T00:00:00.000Z","planeId":"4","id":4,"psngrs":[],"seatsLeft":361},
+    {"src":"TLV","dest":"LON","departure":"2016-06-29T00:00:00.000Z","planeId":"1","id":5,"psngrs":[],"seatsLeft":455},
+    {"src":"TLV","dest":"LON","departure":"2016-06-20T00:00:00.000Z","planeId":"1","id":6,"psngrs":[],"seatsLeft":455},
+    {"src":"TLV","dest":"JFK","departure":"2016-07-02T00:00:00.000Z","planeId":"3","id":7,"psngrs":[],"seatsLeft":215},
+    {"src":"TLV","dest":"JFK","departure":"2016-06-09T00:00:00.000Z","planeId":"1","id":8,"psngrs":[],"seatsLeft":455},
+    {"src":"TLV","dest":"JFK","departure":"2016-06-14T00:00:00.000Z","planeId":"2","id":9,"psngrs":[],"seatsLeft":179},
+    {"src":"TLV","dest":"BKK","departure":"2016-07-29T00:00:00.000Z","planeId":"2","id":10,"psngrs":[],"seatsLeft":179},
+    {"src":"TLV","dest":"BKK","departure":"2016-06-30T00:00:00.000Z","planeId":"4","id":11,"psngrs":[],"seatsLeft":361},
+    {"src":"PAR","dest":"BER","departure":"2016-06-23T00:00:00.000Z","planeId":"2","id":12,"psngrs":[],"seatsLeft":179},
+    {"src":"PAR","dest":"BER","departure":"2016-06-28T00:00:00.000Z","planeId":"3","id":13,"psngrs":[],"seatsLeft":215}
+                        ];
 
 // This is a constructor function 
 function Flight(src ,dest, departure, planeId, id, psngrs) {
@@ -33,7 +48,7 @@ Flight.findById = function (fId) {
 
 Flight.loadJSONFromStorage = function () {
     let flights = getFromStorage(KEY_FLIGHTS);
-    if (!flights) flights = [];
+    if (!flights) flights = INITIAL_FLIGHTS;
     return flights;
 }
 
