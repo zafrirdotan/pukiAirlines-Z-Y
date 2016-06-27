@@ -24,11 +24,11 @@
 
     <main class="booking">
        <h1>Puki Airlines interface</h1>
-       <select required name="fromArprt" id="fromArprt">
-         <option value="">SRC</option>
+       <select onchange="renderDEST()" required name="fromArprt" id="fromArprt">
+         <option value="">Choose</option>
        </select>
-       <select name="toArprt" id="toArprt">
-         <option value="">DEST</option>
+       <select required name="toArprt" id="toArprt">
+         <option value="">Choose</option>
        </select>
     </main>
 
