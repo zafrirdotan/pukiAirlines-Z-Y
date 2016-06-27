@@ -41,8 +41,6 @@ function renderPlaneIds() {
 $(document).ready(()=>{
     console.log('document loaded');
 
-    renderSearchResults([1,2,4]);
-
 });
 
 

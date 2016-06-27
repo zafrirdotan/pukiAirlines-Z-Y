@@ -168,8 +168,10 @@ Flight.getFlights = function () {
 
     let $src = $('#fromArprt').val();
     let $dest = $('#toArprt').val();
-    let flights= Flight.searchFlights($src, $dest);
+    let flights= Flight.searchFlights($src, $dest).sort(function (a,b){b.departure > a.departure});
     console.log('flights:', flights);
+    document.querySelector('.srcToDest').innerText = `${$src} => ${$dest}`;
+    document.querySelector('.searchHeader').style.display = 'block';
     renderSearchResults(flights);
 }
 
