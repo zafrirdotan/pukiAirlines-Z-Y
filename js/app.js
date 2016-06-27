@@ -41,5 +41,18 @@ function renderPlaneIds() {
 $(document).ready(()=>{
     console.log('document loaded');
 
+    renderSearchResults([1,2,4]);
 
 });
+
+
+function renderSearchResults(searchResults){
+    let flights = searchResults;
+    let strHTML = flights.map(flight => `<div class="flightCard">
+                                           <div class="departureDate" >${moment(flight.departure).format('DD-MM-YYYY')}</div>
+                                            <div class="AvailableSeats">Available seats: ${flight.seatsLeft} </div>
+                                            <img src="img/1.png" class="seatIcon">
+                                            <button class="btn btn-default bookItBtn" type="submit">Book It</button>
+                                        </div>`).join('');
+    $('.search-results').html(strHTML);
+}

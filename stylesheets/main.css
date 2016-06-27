@@ -6234,3 +6234,38 @@ footer {
 
 .passengerPage .details .pDetailsName {
   color: orange; }
+
+.searchHeader {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.11);
+  text-align: center;
+  color: #171515;
+  font-size: 1.5em; }
+
+.search-results {
+  display: flex;
+  flex-wrap: wrap; }
+
+.flightCard {
+  background-color: #3476cb;
+  width: 20em;
+  height: 15em;
+  margin: 3em;
+  display: flex;
+  flex-direction: column; }
+
+.departureDate {
+  text-align: center; }
+
+.AvailableSeats {
+  text-align: center; }
+
+.seatIcon {
+  height: 50%;
+  width: 50%;
+  align-self: center; }
+
+.bookItBtn {
+  width: 34%;
+  align-self: center;
+  margin-top: 1em; }
