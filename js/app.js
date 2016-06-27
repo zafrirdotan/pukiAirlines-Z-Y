@@ -28,6 +28,15 @@ function renderDEST() {
     $elToArprt.html(strHTML);
 }
 
+function renderPlaneIds() {
+    let planeIds = Plane.query().map(p => p.id);
+    console.log('planeIds:', planeIds);
+    let strHTML = planeIds.map(pid => `<option value="${pid}">${pid}</option>`).join('');
+    console.log('strHTML:', strHTML);
+    
+    $('#fplaneId').html(strHTML);
+}
+
 $(document).ready(()=>{
 
     console.log('document loaded');

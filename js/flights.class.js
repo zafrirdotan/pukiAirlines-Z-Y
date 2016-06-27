@@ -130,7 +130,7 @@ Flight.saveFlight = function () {
 
 Flight.editFlight = function (fId, event) {
     if (event) event.stopPropagation();
-    console.log('fId:',fId);
+    console.log('fId:',fId); //TODO: delete log
     
     if (fId) {
         let flight = Flight.findById(fId);
