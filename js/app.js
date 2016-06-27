@@ -12,9 +12,9 @@ const airports =    [
                         'MEX'
                     ];
 
-function renderSRC() {
-    let $elFromArprt = $('#fromArprt');
-    let strHTML = (airports.map(ap => `<option value="${ap}">${ap}</option>`).join(''));
+function renderSRC(elId) {
+    let $elFromArprt = $(elId);
+    let strHTML = airports.map(ap => `<option value="${ap}">${ap}</option>`).join('');
     $elFromArprt.append(strHTML);
 }
 
