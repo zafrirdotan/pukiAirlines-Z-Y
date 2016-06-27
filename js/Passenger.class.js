@@ -37,6 +37,7 @@ Passenger.loadJSONFromStorage = function () {
 Passenger.query = function () {
 
     if (Passenger.passengers) return Passenger.passengers;
+    
     let jsonPassengers = Passenger.loadJSONFromStorage();
 
     Passenger.passengers = jsonPassengers.map(jsonPassenger => {

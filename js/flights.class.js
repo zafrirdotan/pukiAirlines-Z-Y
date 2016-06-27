@@ -142,7 +142,7 @@ Flight.editFlight = function (fId, event) {
     } else {
         $('#fid').val('');
         $('#fsource').val('');
-         $('#fplaneId').val('');
+        $('#fplaneId').val('');
         $('#fdest').val('');
         $('#fdate').val('');
     }
@@ -157,3 +157,28 @@ Flight.prototype.assignPsngr = function(fid, Pid){
     let flight = Flight.findById(fid);
     flight.psngrs.push(Pid);
 };
+
+function renderSRC(elId) {
+    let $elFromArprt = $(elId);
+    let strHTML = airports.map(ap => `<option value="${ap}">${ap}</option>`).join('');
+    $elFromArprt.append(strHTML);
+}
+// function renderPlaneIds(elId) {
+//     let planes= Plane.query();
+//     let $elPlaneIdList = $(elId);
+//     let strHTML = planes.map(pl => `<option value="${pl.id}">${pl.id}</option>`).join('');
+//     $elPlaneIdList.append(strHTML);
+//     console.log('$elPlaneIdList:',$elPlaneIdList);
+    
+// }
+
+$(document).ready(()=>{
+    renderSRC('#fsource');
+    renderSRC('#fdest');
+    // renderPlaneIds('#fplaneId')
+    console.log('document loaded');
+
+});
+
+
+

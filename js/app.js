@@ -1,5 +1,6 @@
 'use strict';
 
+
 const airports =    [
                         'TLV',
                         'PAR',
@@ -18,7 +19,7 @@ function renderSRC() {
 }
 
 $(document).ready(()=>{
-
     console.log('document loaded');
+
 
 });
