@@ -55,7 +55,17 @@ function renderSearchResults(searchResults){
     $('.search-results').html(strHTML);
 }
 
- function openBookingModal(pId){
+ function openBookingModal(fId){
+console.log('fId', fId);
+
+    let flight = Flight.findById(+fId);
+    $('.bookingHeader').text(`Book Passenger to Flight ${fId} from ${flight.src} 
+                                to ${flight.dest} on the ${moment(flight.departure).format('DD-MM-YYYY')}`);
+    let passengers = Passenger.query() 
+
+    let strHTMLNames = passengers.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+    $('#pBookingNames').append(strHTMLNames)
 
     $('#modalBookFlight').modal('show');
+
 }
