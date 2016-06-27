@@ -155,7 +155,3 @@ Passenger.prototype.checkPin = function (pin) {
     return pin === this.pin;
 }
 
-Passenger.prototype.bookFlight = function(pId){
-
-    $('#modalBookFlight').modal('show');
-}
