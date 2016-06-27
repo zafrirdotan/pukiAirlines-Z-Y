@@ -50,7 +50,12 @@ function renderSearchResults(searchResults){
                                            <div class="departureDate" >${moment(flight.departure).format('DD-MM-YYYY')}</div>
                                             <div class="AvailableSeats">Available seats: ${flight.seatsLeft} </div>
                                             <img src="img/1.png" class="seatIcon">
-                                            <button class="btn btn-default bookItBtn" type="submit">Book It</button>
+                                            <button class="btn btn-default bookItBtn" id="${flight.id}" onclick="openBookingModal(this.id)" type="submit">Book It</button>
                                         </div>`).join('');
     $('.search-results').html(strHTML);
+}
+
+ function openBookingModal(pId){
+
+    $('#modalBookFlight').modal('show');
 }
